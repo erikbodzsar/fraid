@@ -10,7 +10,7 @@ from re import match
 
 try:
     check_output(["mdadm" ,"--help"])
-except CalledProcessError:
+except OSError:
     print "mdadm package must be installed!"
     quit()
 
