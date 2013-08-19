@@ -4,7 +4,7 @@ fraid utility to create virtual disks
 that are distributed on multiple physical disks.
 """
 
-from os import listdir, path, mkdir, access, F_OK, devnull, remove
+from os import listdir, path, mkdir, access, F_OK, devnull, remove, getuid
 from subprocess import check_output, PIPE, Popen
 from re import match
 
@@ -12,6 +12,10 @@ try:
     check_output(["mdadm" ,"--help"])
 except OSError:
     print "mdadm package must be installed!"
+    quit()
+
+if getuid() != 0:
+    print "this script needs to be run as root!"
     quit()
 
 CONFIG_DIR = "/etc/fraid"
